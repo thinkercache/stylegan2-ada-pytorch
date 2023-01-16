@@ -1,4 +1,4 @@
-## StyleGAN2-ADA &mdash; Official PyTorch implementation
+## StyleGAN2-ADA for High Fidelity Synthetic Face Generation for Rosacea Skin Condition from Limited Data. 
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
 
