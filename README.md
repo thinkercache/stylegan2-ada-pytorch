@@ -13,6 +13,8 @@ visual classification of clinical skin disease images,” in European Conference
 * Google image search results.
 
 
+## Acknowledgements
+This work was conducted with the financial support of the Science Foundation Ireland Centre for Research Training in Digitally-Enhanced Reality (d-real) under Grant No. 18/CRT/6224.
 
 Please find the original Stylegan2-ada-pytorch on https://github.com/NVlabs/stylegan2-ada-pytorch
 
