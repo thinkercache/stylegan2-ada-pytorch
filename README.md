@@ -213,17 +213,6 @@ The name of the output directory reflects the training configuration. For exampl
 | `paper1024`           | Reproduce results for MetFaces at 1024x1024 using 1, 2, 4, or 8 GPUs.
 | `cifar`               | Reproduce results for CIFAR-10 (tuned configuration) using 1 or 2 GPUs.
 
-The training configuration can be further customized with additional command line options:
-
-* `--aug=noaug` disables ADA.
-* `--cond=1` enables class-conditional training (requires a dataset with labels).
-* `--mirror=1` amplifies the dataset with x-flips. Often beneficial, even with ADA.
-* `--resume=ffhq1024 --snap=10` performs transfer learning from FFHQ trained at 1024x1024.
-* `--resume=~/training-runs/<NAME>/network-snapshot-<INT>.pkl` resumes a previous training run.
-* `--gamma=10` overrides R1 gamma. We recommend trying a couple of different values for each new dataset.
-* `--aug=ada --target=0.7` adjusts ADA target value (default: 0.6).
-* `--augpipe=blit` enables pixel blitting but disables all other augmentations.
-* `--augpipe=bgcfnc` enables all available augmentations (blit, geom, color, filter, noise, cutout).
 
 Please refer to [`python train.py --help`](./docs/train-help.txt) for the full list.
 
