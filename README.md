@@ -4,7 +4,7 @@
 
 Computer-aided skin disease diagnosis using deep learning and computer vision relies on a large amount of data collected from hospitals and medical professionals. Accessing high volumes of data, especially for facial skin conditions, is challenging due to privacy concerns. Thus, in the computer-aided diagnosis research community, a facial skin condition like Rosacea is lamentably neglected due to limited data availability. This is the major motivation for exploring an alternative approach to computer-aided diagnosis when only a few images are available. Recently, Generative Adversarial Networks, principally the variants of StyleGANs trained on limited datasets, have shown promising performance in generating synthetic facial images. In this study, for the first time, a small dataset of Rosacea with 300 full-face images is utilized and investigated using StyleGAN2-ADA. The preliminary experiments show how fine-tuning the model and varying experimental settings significantly affect the fidelity of the Rosacea features. We demonstrated that $R_1$ Regularization strength helps achieve high-fidelity characteristics. Additionally, this study presents qualitative evaluations of synthetic/generated faces by expert dermatologists and non-specialist participants. The quantitative and qualitative evaluations are presented by validation metric(s) and  the opinions of expert dermatologists and non-specialist participants. Followed by these evaluations, a few limitations and future directions are discussed. 
 
-Please find the dataset generated from this work at https://github.com/thinkercache/synth-rff-300
+300 synthetic rosacea faces generated from this work is available at https://github.com/thinkercache/synth-rff-300
 
 
 
