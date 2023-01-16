@@ -105,8 +105,34 @@ Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
 ```.bash
 python dataset_tool.py --source=/tmp/brecahad-crops --dest=~/datasets/brecahad.zip
 ```
+## Training new networks
 
-## Getting started
+In its most basic form, training new networks boils down to:
+
+```.bash
+python train.py --outdir=~/training-runs --data=~/mydataset.zip --gpus=1 --dry-run
+python train.py --outdir=~/training-runs --data=~/mydataset.zip --gpus=1
+```
+
+The first command is optional; it validates the arguments, prints out the training configuration, and exits. The second command kicks off the actual training.
+
+In this example, the results are saved to a newly created directory `~/training-runs/<ID>-mydataset-auto1`, controlled by `--outdir`. The training exports network pickles (`network-snapshot-<INT>.pkl`) and example images (`fakes<INT>.png`) at regular intervals (controlled by `--snap`). For each pickle, it also evaluates FID (controlled by `--metrics`) and logs the resulting scores in `metric-fid50k_full.jsonl` (as well as TFEvents if TensorBoard is installed).
+
+The name of the output directory reflects the training configuration. For example, `00000-mydataset-auto1` indicates that the *base configuration* was `auto1`, meaning that the hyperparameters were selected automatically for training on one GPU. The base configuration is controlled by `--cfg`:
+
+| Base config           | Description
+| :-------------------- | :----------
+| `auto`&nbsp;(default) | Automatically select reasonable defaults based on resolution and GPU count. Serves as a good starting point for new datasets but does not necessarily lead to optimal results.
+| `stylegan2`           | Reproduce results for StyleGAN2 config F at 1024x1024 using 1, 2, 4, or 8 GPUs.
+| `paper256`            | Reproduce results for FFHQ and LSUN Cat at 256x256 using 1, 2, 4, or 8 GPUs.
+| `paper512`            | Reproduce results for BreCaHAD and AFHQ at 512x512 using 1, 2, 4, or 8 GPUs.
+| `paper1024`           | Reproduce results for MetFaces at 1024x1024 using 1, 2, 4, or 8 GPUs.
+| `cifar`               | Reproduce results for CIFAR-10 (tuned configuration) using 1 or 2 GPUs.
+
+
+Please refer to [`python train.py --help`](./docs/train-help.txt) for the full list.
+
+## Pre-trained networks
 
 Pre-trained networks are stored as `*.pkl` files that can be referenced using local filenames or URLs:
 
@@ -190,33 +216,6 @@ img = G.synthesis(w, noise_mode='const', force_fp32=True)
 Please refer to [`generate.py`](./generate.py), [`style_mixing.py`](./style_mixing.py), and [`projector.py`](./projector.py) for further examples.
 
 
-
-## Training new networks
-
-In its most basic form, training new networks boils down to:
-
-```.bash
-python train.py --outdir=~/training-runs --data=~/mydataset.zip --gpus=1 --dry-run
-python train.py --outdir=~/training-runs --data=~/mydataset.zip --gpus=1
-```
-
-The first command is optional; it validates the arguments, prints out the training configuration, and exits. The second command kicks off the actual training.
-
-In this example, the results are saved to a newly created directory `~/training-runs/<ID>-mydataset-auto1`, controlled by `--outdir`. The training exports network pickles (`network-snapshot-<INT>.pkl`) and example images (`fakes<INT>.png`) at regular intervals (controlled by `--snap`). For each pickle, it also evaluates FID (controlled by `--metrics`) and logs the resulting scores in `metric-fid50k_full.jsonl` (as well as TFEvents if TensorBoard is installed).
-
-The name of the output directory reflects the training configuration. For example, `00000-mydataset-auto1` indicates that the *base configuration* was `auto1`, meaning that the hyperparameters were selected automatically for training on one GPU. The base configuration is controlled by `--cfg`:
-
-| Base config           | Description
-| :-------------------- | :----------
-| `auto`&nbsp;(default) | Automatically select reasonable defaults based on resolution and GPU count. Serves as a good starting point for new datasets but does not necessarily lead to optimal results.
-| `stylegan2`           | Reproduce results for StyleGAN2 config F at 1024x1024 using 1, 2, 4, or 8 GPUs.
-| `paper256`            | Reproduce results for FFHQ and LSUN Cat at 256x256 using 1, 2, 4, or 8 GPUs.
-| `paper512`            | Reproduce results for BreCaHAD and AFHQ at 512x512 using 1, 2, 4, or 8 GPUs.
-| `paper1024`           | Reproduce results for MetFaces at 1024x1024 using 1, 2, 4, or 8 GPUs.
-| `cifar`               | Reproduce results for CIFAR-10 (tuned configuration) using 1 or 2 GPUs.
-
-
-Please refer to [`python train.py --help`](./docs/train-help.txt) for the full list.
 
 ## Expected training time
 
