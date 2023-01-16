@@ -25,6 +25,87 @@ Please find the original Stylegan2-ada-pytorch on https://github.com/NVlabs/styl
 
 The code relies heavily on custom PyTorch extensions that are compiled on the fly using NVCC. On Windows, the compilation requires Microsoft Visual Studio. We recommend installing [Visual Studio Community Edition](https://visualstudio.microsoft.com/vs/) and adding it into `PATH` using `"C:\Program Files (x86)\Microsoft Visual Studio\<VERSION>\Community\VC\Auxiliary\Build\vcvars64.bat"`.
 
+## Preparing datasets
+
+Datasets are stored as uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels.
+
+Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Alternatively, the folder can also be used directly as a dataset, without running it through `dataset_tool.py` first, but doing so may lead to suboptimal performance.
+
+Legacy TFRecords datasets are not supported &mdash; see below for instructions on how to convert them.
+
+**FFHQ**:
+
+Step 1: Download the [Flickr-Faces-HQ dataset](https://github.com/NVlabs/ffhq-dataset) as TFRecords.
+
+Step 2: Extract images from TFRecords using `dataset_tool.py` from the [TensorFlow version of StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada/):
+
+```.bash
+# Using dataset_tool.py from TensorFlow version at
+# https://github.com/NVlabs/stylegan2-ada/
+python ../stylegan2-ada/dataset_tool.py unpack \
+    --tfrecord_dir=~/ffhq-dataset/tfrecords/ffhq --output_dir=/tmp/ffhq-unpacked
+```
+
+Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
+
+```.bash
+# Original 1024x1024 resolution.
+python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq.zip
+
+# Scaled down 256x256 resolution.
+python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq256x256.zip \
+    --width=256 --height=256
+```
+
+**MetFaces**: Download the [MetFaces dataset](https://github.com/NVlabs/metfaces-dataset) and create ZIP archive:
+
+```.bash
+python dataset_tool.py --source=~/downloads/metfaces/images --dest=~/datasets/metfaces.zip
+```
+
+**AFHQ**: Download the [AFHQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) and create ZIP archive:
+
+```.bash
+python dataset_tool.py --source=~/downloads/afhq/train/cat --dest=~/datasets/afhqcat.zip
+python dataset_tool.py --source=~/downloads/afhq/train/dog --dest=~/datasets/afhqdog.zip
+python dataset_tool.py --source=~/downloads/afhq/train/wild --dest=~/datasets/afhqwild.zip
+```
+
+**CIFAR-10**: Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
+
+```.bash
+python dataset_tool.py --source=~/downloads/cifar-10-python.tar.gz --dest=~/datasets/cifar10.zip
+```
+
+**LSUN**: Download the desired categories from the [LSUN project page](https://www.yf.io/p/lsun/) and convert to ZIP archive:
+
+```.bash
+python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip \
+    --transform=center-crop --width=256 --height=256 --max_images=200000
+
+python dataset_tool.py --source=~/downloads/lsun/raw/car_lmdb --dest=~/datasets/lsuncar200k.zip \
+    --transform=center-crop-wide --width=512 --height=384 --max_images=200000
+```
+
+**BreCaHAD**:
+
+Step 1: Download the [BreCaHAD dataset](https://figshare.com/articles/BreCaHAD_A_Dataset_for_Breast_Cancer_Histopathological_Annotation_and_Diagnosis/7379186).
+
+Step 2: Extract 512x512 resolution crops using `dataset_tool.py` from the [TensorFlow version of StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada/):
+
+```.bash
+# Using dataset_tool.py from TensorFlow version at
+# https://github.com/NVlabs/stylegan2-ada/
+python dataset_tool.py extract_brecahad_crops --cropsize=512 \
+    --output_dir=/tmp/brecahad-crops --brecahad_dir=~/downloads/brecahad/images
+```
+
+Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
+
+```.bash
+python dataset_tool.py --source=/tmp/brecahad-crops --dest=~/datasets/brecahad.zip
+```
+
 ## Getting started
 
 Pre-trained networks are stored as `*.pkl` files that can be referenced using local filenames or URLs:
@@ -108,86 +189,7 @@ img = G.synthesis(w, noise_mode='const', force_fp32=True)
 
 Please refer to [`generate.py`](./generate.py), [`style_mixing.py`](./style_mixing.py), and [`projector.py`](./projector.py) for further examples.
 
-## Preparing datasets
 
-Datasets are stored as uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels.
-
-Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Alternatively, the folder can also be used directly as a dataset, without running it through `dataset_tool.py` first, but doing so may lead to suboptimal performance.
-
-Legacy TFRecords datasets are not supported &mdash; see below for instructions on how to convert them.
-
-**FFHQ**:
-
-Step 1: Download the [Flickr-Faces-HQ dataset](https://github.com/NVlabs/ffhq-dataset) as TFRecords.
-
-Step 2: Extract images from TFRecords using `dataset_tool.py` from the [TensorFlow version of StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada/):
-
-```.bash
-# Using dataset_tool.py from TensorFlow version at
-# https://github.com/NVlabs/stylegan2-ada/
-python ../stylegan2-ada/dataset_tool.py unpack \
-    --tfrecord_dir=~/ffhq-dataset/tfrecords/ffhq --output_dir=/tmp/ffhq-unpacked
-```
-
-Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
-
-```.bash
-# Original 1024x1024 resolution.
-python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq.zip
-
-# Scaled down 256x256 resolution.
-python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq256x256.zip \
-    --width=256 --height=256
-```
-
-**MetFaces**: Download the [MetFaces dataset](https://github.com/NVlabs/metfaces-dataset) and create ZIP archive:
-
-```.bash
-python dataset_tool.py --source=~/downloads/metfaces/images --dest=~/datasets/metfaces.zip
-```
-
-**AFHQ**: Download the [AFHQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) and create ZIP archive:
-
-```.bash
-python dataset_tool.py --source=~/downloads/afhq/train/cat --dest=~/datasets/afhqcat.zip
-python dataset_tool.py --source=~/downloads/afhq/train/dog --dest=~/datasets/afhqdog.zip
-python dataset_tool.py --source=~/downloads/afhq/train/wild --dest=~/datasets/afhqwild.zip
-```
-
-**CIFAR-10**: Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
-
-```.bash
-python dataset_tool.py --source=~/downloads/cifar-10-python.tar.gz --dest=~/datasets/cifar10.zip
-```
-
-**LSUN**: Download the desired categories from the [LSUN project page](https://www.yf.io/p/lsun/) and convert to ZIP archive:
-
-```.bash
-python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip \
-    --transform=center-crop --width=256 --height=256 --max_images=200000
-
-python dataset_tool.py --source=~/downloads/lsun/raw/car_lmdb --dest=~/datasets/lsuncar200k.zip \
-    --transform=center-crop-wide --width=512 --height=384 --max_images=200000
-```
-
-**BreCaHAD**:
-
-Step 1: Download the [BreCaHAD dataset](https://figshare.com/articles/BreCaHAD_A_Dataset_for_Breast_Cancer_Histopathological_Annotation_and_Diagnosis/7379186).
-
-Step 2: Extract 512x512 resolution crops using `dataset_tool.py` from the [TensorFlow version of StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada/):
-
-```.bash
-# Using dataset_tool.py from TensorFlow version at
-# https://github.com/NVlabs/stylegan2-ada/
-python dataset_tool.py extract_brecahad_crops --cropsize=512 \
-    --output_dir=/tmp/brecahad-crops --brecahad_dir=~/downloads/brecahad/images
-```
-
-Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
-
-```.bash
-python dataset_tool.py --source=/tmp/brecahad-crops --dest=~/datasets/brecahad.zip
-```
 
 ## Training new networks
 
