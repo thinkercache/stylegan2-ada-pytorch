@@ -1,6 +1,6 @@
 ## StyleGAN2-ADA for High Fidelity Synthetic Face Generation for Rosacea Skin Condition from Limited Data. 
 
-![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
+![Teaser image](./docs/rosacea-ada-teaser.jpeg)
 
 **Training Generative Adversarial Networks with Limited Data**<br>
 Tero Karras, Miika Aittala, Janne Hellsten, Samuli Laine, Jaakko Lehtinen, Timo Aila<br>
