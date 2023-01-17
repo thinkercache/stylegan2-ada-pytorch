@@ -4,21 +4,22 @@
 
 Computer-aided skin disease diagnosis using deep learning and computer vision relies on a large amount of data collected from hospitals and medical professionals. Accessing high volumes of data, especially for facial skin conditions, is challenging due to privacy concerns. Thus, in the computer-aided diagnosis research community, a facial skin condition like Rosacea is lamentably neglected due to limited data availability. This is the major motivation for exploring an alternative approach to computer-aided diagnosis when only a few images are available. Recently, Generative Adversarial Networks, principally the variants of StyleGANs trained on limited datasets, have shown promising performance in generating synthetic facial images. In this study, for the first time, a small dataset of Rosacea with 300 full-face images is utilized and investigated using StyleGAN2-ADA. The preliminary experiments show how fine-tuning the model and varying experimental settings significantly affect the fidelity of the Rosacea features. We demonstrated that $R_1$ Regularization strength helps achieve high-fidelity characteristics. Additionally, this study presents qualitative evaluations of synthetic/generated faces by expert dermatologists and non-specialist participants. The quantitative and qualitative evaluations are presented by validation metric(s) and  the opinions of expert dermatologists and non-specialist participants. Followed by these evaluations, a few limitations and future directions are discussed. 
 
+## Generated Images
 300 synthetic rosacea faces generated from this work is available at https://github.com/thinkercache/synth-rff-300
 
-The 300 real images used in this work came from 3 sources such as: 
+## The 300 real images used in this work came from 3 sources such as: 
 * from The Powell Lab, UCD (https://www.ucd.ie/charles/research/researchgroups/thepowelllab/). 
 * X. Sun, J. Yang, M. Sun, and K. Wang, “A benchmark for automatic
 visual classification of clinical skin disease images,” in European Conference on Computer Vision. Springer, 2016, pp. 206–222.
 * Google image search results.
 
-Steps for preparing a custom Rosacea dataset: 
+## Steps for preparing a custom Rosacea dataset: 
 * Handpick the images with full face visibility in which forehead, eyes, cheeks, and chin are present. 
 * To preserve the high quality of the disease feature, consider orginial images with minimum resolution 250x250 and above.
 * In this work, images are resized to 512x512. Please refer [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more details on dataset preparation. 
 
-Running Experiments: 
-Please refer [`stylegan2-ada-pytorch/Config-Exp1-10/`](./stylegan2-ada-pytorch/Config-Exp1-10/) for configuration details of 10 experiments conducted in this study.
+## Running Experiments: 
+* Please refer [`stylegan2-ada-pytorch/Config-Exp1-10/`](./stylegan2-ada-pytorch/Config-Exp1-10/) for configuration details of 10 experiments conducted in this study.
 
 ## Acknowledgements
 This work was conducted with the financial support of the Science Foundation Ireland Centre for Research Training in Digitally-Enhanced Reality (d-real) under Grant No. 18/CRT/6224.
