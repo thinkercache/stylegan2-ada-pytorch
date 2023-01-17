@@ -17,11 +17,18 @@ Steps for preparing a custom Rosacea dataset:
 * To preserve the high quality of the disease feature, consider orginial images with minimum resolution 250x250 and above.
 * In this work, images are resized to 512x512. Please refer [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more details on dataset preparation. 
 
+Running Experiments: 
+Please refer [`stylegan2-ada-pytorch/Config-Exp1-10/`](./stylegan2-ada-pytorch/Config-Exp1-10/) for configuration details of 10 experiments conducted in this study.
+
 ## Acknowledgements
 This work was conducted with the financial support of the Science Foundation Ireland Centre for Research Training in Digitally-Enhanced Reality (d-real) under Grant No. 18/CRT/6224.
 
 ## Credits
 Please find the original Stylegan2-ada-pytorch on https://github.com/NVlabs/stylegan2-ada-pytorch
+
+
+______________________
+
 
 
 ## Official README.md
