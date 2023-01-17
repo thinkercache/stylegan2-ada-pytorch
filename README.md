@@ -12,6 +12,10 @@ The 300 real images used in this work came from 3 sources such as:
 visual classification of clinical skin disease images,” in European Conference on Computer Vision. Springer, 2016, pp. 206–222.
 * Google image search results.
 
+Steps for preparing a custom Rosacea dataset: 
+* Handpick the images with full face visibility in which forehead, eyes, cheeks, and chin are present. 
+* To preserve the high quality of the disease feature, consider orginial images with minimum resolution 250x250 and above.
+* In this work, images are resized to 512x512. Please refer dataset_tool.py --help for more details on dataset preparation. 
 
 ## Acknowledgements
 This work was conducted with the financial support of the Science Foundation Ireland Centre for Research Training in Digitally-Enhanced Reality (d-real) under Grant No. 18/CRT/6224.
