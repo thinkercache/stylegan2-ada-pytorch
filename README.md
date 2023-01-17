@@ -15,7 +15,7 @@ visual classification of clinical skin disease images,” in European Conference
 Steps for preparing a custom Rosacea dataset: 
 * Handpick the images with full face visibility in which forehead, eyes, cheeks, and chin are present. 
 * To preserve the high quality of the disease feature, consider orginial images with minimum resolution 250x250 and above.
-* In this work, images are resized to 512x512. Please refer dataset_tool.py and /docs/dataset-tool-help.txt for more details on dataset preparation. 
+* In this work, images are resized to 512x512. Please refer [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more details on dataset preparation. 
 
 ## Acknowledgements
 This work was conducted with the financial support of the Science Foundation Ireland Centre for Research Training in Digitally-Enhanced Reality (d-real) under Grant No. 18/CRT/6224.
