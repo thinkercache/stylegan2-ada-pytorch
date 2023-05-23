@@ -8,7 +8,7 @@ Computer-aided skin disease diagnosis using deep learning and computer vision re
 300 synthetic rosacea faces generated from this work is available at https://github.com/thinkercache/synth-rff-300
 
 ## The 300 real images used in this work came from 3 sources such as: 
-* from The Powell Lab, UCD (https://www.ucd.ie/charles/research/researchgroups/thepowelllab/). 
+* The Powell Lab, UCD (https://www.ucd.ie/charles/research/researchgroups/thepowelllab/). 
 * X. Sun, J. Yang, M. Sun, and K. Wang, “A benchmark for automatic
 visual classification of clinical skin disease images,” in European Conference on Computer Vision. Springer, 2016, pp. 206–222.
 * Google Search images, Teledermatology websites.
