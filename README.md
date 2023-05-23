@@ -11,7 +11,7 @@ Computer-aided skin disease diagnosis using deep learning and computer vision re
 * from The Powell Lab, UCD (https://www.ucd.ie/charles/research/researchgroups/thepowelllab/). 
 * X. Sun, J. Yang, M. Sun, and K. Wang, “A benchmark for automatic
 visual classification of clinical skin disease images,” in European Conference on Computer Vision. Springer, 2016, pp. 206–222.
-* Teledermatology websites.
+* Google Search images, Teledermatology websites.
 
 ## Steps for preparing a custom Rosacea dataset: 
 * Handpick the images with full face visibility in which forehead, eyes, cheeks, and chin are present. 
